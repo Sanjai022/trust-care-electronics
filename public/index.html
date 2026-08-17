@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust Care Electronics</title>
+    <link rel="icon" href="/logo.jpeg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+
+        <!-- Menu Button -->
+        <button class="menu-button" id="menuButton">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <h1 onclick="window.location.href='index.html'" style="cursor: pointer; margin: 0;">Trust Care Electronics</h1>
+        
+        <!-- Horizontal Navigation Menu -->
+        <nav class="header-nav">
+            <a href="index.html">Home</a>
+            <span class="nav-separator">|</span>
+            <a href="inverter.html">Inverter</a>
+            <span class="nav-separator">|</span>
+            <a href="battery.html">Battery</a>
+            <span class="nav-separator">|</span>
+            <a href="ups.html">UPS</a>
+            <span class="nav-separator">|</span>
+            <a href="about.html">About us</a>
+        </nav>
+        
+        <a href="index.html" class="header-logo-link">
+            <img src="/logo.jpeg" alt="Trust Care Electronics Logo" class="header-logo">
+        </a>
+
+    </header>
+
+
+    <!-- Sliding Menu -->
+    <nav class="side-menu" id="sideMenu">
+
+        <button class="close-button" id="closeButton">
+            &times;
+        </button>
+
+        <h2>Menu</h2>
+
+        <a href="index.html">Home</a>
+        <a href="inverter.html">Inverter</a>
+        <a href="battery.html">Battery</a>
+        <a href="ups.html">UPS</a>
+        <a href="about.html">About us</a>
+
+    </nav>
+
+
+    <!-- Dark overlay -->
+    <div class="overlay" id="overlay"></div>
+
+
+    <!-- Main Content -->
+    <main>
+
+        <section class="hero">
+            <div class="hero-bg" aria-hidden="true">
+                <div class="image-track">
+                    <div class="image-card">
+                        <img src="/Microtek_inverter.jpg" alt="Microtek inverter">
+                    </div>
+                    <div class="image-card">
+                        <img src="/amaron_battery.jpeg" alt="Amaron battery">
+                    </div>
+                    <div class="image-card">
+                        <img src="/Battery.jpeg" alt="Battery product">
+                    </div>
+                    <div class="image-card">
+                        <img src="/UPS.jpeg" alt="UPS power backup">
+                    </div>
+                    <div class="image-card">
+                        <img src="/images.jpeg" alt="Power electronics image">
+                    </div>
+                    <div class="image-card">
+                        <img src="/exide-instabrite-ib1350-135ah-flate-plate-battery-min.jpg" alt="Exide battery product">
+                    </div>
+
+                    <div class="image-card">
+                        <img src="/Microtek_inverter.jpg" alt="Microtek inverter">
+                    </div>
+                    <div class="image-card">
+                        <img src="/amaron_battery.jpeg" alt="Amaron battery">
+                    </div>
+                    <div class="image-card">
+                        <img src="/Battery.jpeg" alt="Battery product">
+                    </div>
+                    <div class="image-card">
+                        <img src="/UPS.jpeg" alt="UPS power backup">
+                    </div>
+                    <div class="image-card">
+                        <img src="/images.jpeg" alt="Power electronics image">
+                    </div>
+                    <div class="image-card">
+                        <img src="/exide-instabrite-ib1350-135ah-flate-plate-battery-min.jpg" alt="Exide battery product">
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <span class="eyebrow">Trusted energy partner</span>
+                <h2>Reliable Power Solutions</h2>
+
+                <p>
+                    Explore our range of inverters, batteries,
+                    and UPS solutions for reliable and uninterrupted power.
+                </p>
+
+                <button class="explore-button" onclick="window.location.href='inverter.html'">
+                    Explore Products
+                </button>
+            </div>
+        </section>
+
+
+        <!-- Products -->
+        <section class="products">
+
+            <div class="card" id="inverter" onclick="window.location.href='inverter.html'" style="cursor:pointer;">
+                <h2>Inverter</h2>
+                <p>
+                    Reliable inverters for homes, offices,
+                    and commercial applications.
+                </p>
+            </div>
+
+            <div class="card" id="battery" onclick="window.location.href='battery.html'" style="cursor:pointer;">
+                <h2>Battery</h2>
+                <p>
+                    High-performance batteries designed
+                    for long-lasting backup power.
+                </p>
+            </div>
+
+            <div class="card" id="ups" onclick="window.location.href='ups.html'" style="cursor:pointer;">
+                <h2>UPS</h2>
+                <p>
+                    Uninterruptible Power Supply systems
+                    for critical equipment.
+                </p>
+            </div>
+
+            <div class="card" id="about" onclick="window.location.href='about.html'" style="cursor:pointer;">
+                <h2>About Us</h2>
+                <p>
+                    We provide reliable and efficient power
+                    backup solutions for modern requirements.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- Quick Inquiry Form -->
+        <section class="inquiry-section">
+            <div class="inquiry-container">
+                <h2>Quick Inquiry</h2>
+                <p>Get in touch with us for product inquiries and quotations</p>
+                
+                <form id="inquiryForm" class="inquiry-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="product">Product Interest *</label>
+                            <select id="product" name="product" required>
+                                <option value="">-- Select Product --</option>
+                                <option value="Inverter">Inverter</option>
+                                <option value="Battery">Battery</option>
+                                <option value="UPS">UPS</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" placeholder="Tell us about your requirements..." rows="4" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Inquiry</button>
+                </form>
+
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <p>✓ Thank you! We'll get back to you shortly.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <div class="contact-panel">
+                <div class="whatsapp-badge" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.52 3.48A11.86 11.86 0 0 0 12.04 0C5.48 0 .12 5.36.12 11.92c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.93 11.93 0 0 0 5.74 1.74h.01c6.56 0 11.92-5.36 11.92-11.92 0-3.18-1.24-6.17-3.45-8.39ZM12.04 21.8h-.01a9.93 9.93 0 0 1-5.06-1.39L6.4 20.7l-1.17-.7A9.84 9.84 0 0 1 2.2 11.92a9.92 9.92 0 0 1 19.84 0c0 5.47-4.46 9.88-9.96 9.88Zm5.47-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.18.2-.35.22-.65.08-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.52-1.79-1.7-2.09-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.53.07-.8.38-.27.3-1.04 1.02-1.04 2.48s1.06 2.87 1.21 3.08c.15.2 2.08 3.18 5.04 4.46.7.3 1.25.48 1.68.62.71.23 1.35.2 1.86.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.35Z"/>
+                    </svg>
+                </div>
+
+                <h2>Contact Us</h2>
+
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <div class="icon-wrap phone-icon" aria-label="Phone">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.57 21 3 13.43 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"/>
+                            </svg>
+                        </div>
+                        <span class="label">Phone</span>
+                        <a href="tel:+919884087878">+91 9884087878</a>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon-wrap email-icon" aria-label="Email">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-13Zm2.3.7 6.7 5.3 6.7-5.3H5.3Zm13.2 2.4-6.2 4.9a1 1 0 0 1-1.2 0L5.5 8.6v9.9c0 .28.22.5.5.5h12c.28 0 .5-.22.5-.5V8.6Z"/>
+                            </svg>
+                        </div>
+                        <span class="label">Email</span>
+                        <a href="mailto:trustcareelectronics@gmail.com">trustcareelectronics@gmail.com</a>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon-wrap whatsapp-icon" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.52 3.48A11.86 11.86 0 0 0 12.04 0C5.48 0 .12 5.36.12 11.92c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.93 11.93 0 0 0 5.74 1.74h.01c6.56 0 11.92-5.36 11.92-11.92 0-3.18-1.24-6.17-3.45-8.39ZM12.04 21.8h-.01a9.93 9.93 0 0 1-5.06-1.39L6.4 20.7l-1.17-.7A9.84 9.84 0 0 1 2.2 11.92a9.92 9.92 0 0 1 19.84 0c0 5.47-4.46 9.88-9.96 9.88Zm5.47-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.18.2-.35.22-.65.08-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.52-1.79-1.7-2.09-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.53.07-.8.38-.27.3-1.04 1.02-1.04 2.48s1.06 2.87 1.21 3.08c.15.2 2.08 3.18 5.04 4.46.7.3 1.25.48 1.68.62.71.23 1.35.2 1.86.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.35Z"/>
+                            </svg>
+                        </div>
+                        <span class="label">WhatsApp</span>
+                        <a href="https://wa.me/919884087878" target="_blank" rel="noopener noreferrer">+91 9884087878</a>
+                    </div>
+
+                    <div class="contact-item address-item" onclick="window.open('https://maps.app.goo.gl/U5BKf7q1mpoMP46T9', '_blank')" style="cursor: pointer;">
+                        <div class="icon-wrap location-icon" aria-label="Address">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7Zm0 9.5A2.5 2.5 0 1 0 12 6a2.5 2.5 0 0 0 0 5.5Z"/>
+                            </svg>
+                        </div>
+                        <span class="label">Address</span>
+                        <a href="https://maps.app.goo.gl/U5BKf7q1mpoMP46T9" target="_blank" rel="noopener noreferrer">
+                            1-4, Pugazhendhi Rd, Block 4, Block 5,<br>
+                            Mogappair East, Chennai,<br>
+                            Greater Chennai, Tamil Nadu 600037
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
