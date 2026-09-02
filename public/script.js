@@ -72,23 +72,52 @@ if (inquiryForm) {
         // Log the form data (for debugging)
         console.log("Form Submitted:", formData);
 
-        // Save to localStorage (persistent on client side)
-        let submissions = JSON.parse(localStorage.getItem("inquiries")) || [];
-        submissions.push(formData);
-        localStorage.setItem("inquiries", JSON.stringify(submissions));
+        // Create FormData object for Google Apps Script to prevent CORS issues
+        const formPayload = new FormData();
+        formPayload.append("name", formData.name);
+        formPayload.append("phone", formData.phone);
+        formPayload.append("email", formData.email);
+        formPayload.append("product", formData.product);
+        formPayload.append("message", formData.message);
+        formPayload.append("timestamp", formData.timestamp);
 
-        // Clear the form
-        inquiryForm.reset();
+        // Replace this URL with your deployed Google Apps Script Web App URL
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_jdkXfYT7TGahLgpf2Yz63-Cr8zTXR-uxqSBoik8yb_K1QsE-ok1-LvXhNV78PQTj/exec";
 
-        // Show success message
-        successMessage.style.display = "block";
+        // Optional: Change button text to show loading
+        const submitBtn = inquiryForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn ? submitBtn.innerText : 'Submit';
+        if (submitBtn) submitBtn.innerText = 'Submitting...';
 
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-            successMessage.style.display = "none";
-        }, 5000);
+        // Send data to Google Sheets
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            body: formPayload
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Success:", data);
 
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                // Clear the form
+                inquiryForm.reset();
+
+                // Show success message
+                successMessage.style.display = "block";
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = "none";
+                }, 5000);
+
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            })
+            .catch(error => {
+                console.error("Error submitting to Google Sheets:", error);
+                alert("There was an error submitting your form. Please try again later.");
+            })
+            .finally(() => {
+                if (submitBtn) submitBtn.innerText = originalBtnText;
+            });
     });
 }
