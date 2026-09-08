@@ -201,7 +201,27 @@ function inquireProduct(productName) {
             }
         }
         if (!matched) {
-            productSelect.value = "Battery";
+            const lower = productName.toLowerCase();
+            for (let i = 0; i < productSelect.options.length; i++) {
+                const optText = productSelect.options[i].text.toLowerCase();
+                const optVal = productSelect.options[i].value.toLowerCase();
+                if ((lower.includes("inverter") || lower.includes("luxe") || lower.includes("merlyn") || lower.includes("super power") || lower.includes("heavy duty")) && (optVal === "inverter" || optText.includes("inverter"))) {
+                    productSelect.selectedIndex = i;
+                    matched = true;
+                    break;
+                } else if (lower.includes("battery") && (optVal === "battery" || optText.includes("battery"))) {
+                    productSelect.selectedIndex = i;
+                    matched = true;
+                    break;
+                } else if (lower.includes("ups") && (optVal === "ups" || optText.includes("ups"))) {
+                    productSelect.selectedIndex = i;
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched && productSelect.options.length > 0) {
+                productSelect.selectedIndex = 0;
+            }
         }
     }
 
