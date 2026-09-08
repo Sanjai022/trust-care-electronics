@@ -468,6 +468,37 @@ function whatsappCalculatorCombo() {
     window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
 }
 
+// 1-Click Action: Claim Old Battery Exchange Discount
+function claimExchangeDiscount(tierName, approxValue) {
+    const inquirySection = document.getElementById("inquiry") || document.querySelector(".inquiry-section");
+    const productSelect = document.getElementById("product");
+    const messageBox = document.getElementById("message");
+    const nameInput = document.getElementById("name");
+
+    if (inquirySection) {
+        inquirySection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    if (productSelect) {
+        for (let i = 0; i < productSelect.options.length; i++) {
+            if (productSelect.options[i].text.toLowerCase().includes("battery") || productSelect.options[i].value === "Battery") {
+                productSelect.selectedIndex = i;
+                break;
+            }
+        }
+    }
+
+    if (messageBox) {
+        messageBox.value = `Hello Trust Care Electronics, I would like to exchange my old ${tierName} (estimated scrap value ${approxValue}) for a new Microtek inverter battery. Please provide your best exchange quotation and confirm doorstep pickup & installation in Chennai.`;
+    }
+
+    if (nameInput) {
+        setTimeout(() => {
+            nameInput.focus();
+        }, 600);
+    }
+}
+
 // Auto-run calculator initialization when DOM is ready
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initLoadCalculator);
