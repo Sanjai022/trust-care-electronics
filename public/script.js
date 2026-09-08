@@ -215,3 +215,242 @@ function inquireProduct(productName) {
         }, 600);
     }
 }
+
+// ==========================================
+// INVERTER & BATTERY LOAD CALCULATOR ENGINE
+// ==========================================
+
+const APPLIANCE_WATTS = {
+    fan: 75,
+    led: 15,
+    tubelight: 40,
+    tv: 100,
+    router: 50,
+    fridge: 200,
+    custom: 0
+};
+
+let currentCalculation = {
+    totalWatts: 0,
+    backupHours: 3,
+    inverterVa: 0,
+    batteryAh: 0,
+    inverterName: "",
+    batteryName: ""
+};
+
+function initLoadCalculator() {
+    const calcContainer = document.getElementById("load-calculator");
+    if (!calcContainer) return;
+
+    const backupSlider = document.getElementById("backupHours");
+    const backupHoursVal = document.getElementById("backupHoursVal");
+    const customWattsInput = document.getElementById("customWatts");
+    const customQtyInput = document.getElementById("qty-custom");
+
+    // Quantity buttons listeners
+    const qtyButtons = calcContainer.querySelectorAll(".calc-qty-btn");
+    qtyButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const appliance = btn.dataset.appliance;
+            const action = btn.dataset.action;
+            const input = document.getElementById(`qty-${appliance}`);
+            if (!input) return;
+
+            let val = parseInt(input.value, 10) || 0;
+            if (action === "plus") {
+                val = Math.min(val + 1, 20);
+            } else if (action === "minus") {
+                val = Math.max(val - 1, 0);
+            }
+            input.value = val;
+            calculateLoad();
+        });
+    });
+
+    // Inputs direct change listeners
+    const qtyInputs = calcContainer.querySelectorAll(".calc-qty-input");
+    qtyInputs.forEach(input => {
+        input.addEventListener("input", () => {
+            let val = parseInt(input.value, 10);
+            if (isNaN(val) || val < 0) val = 0;
+            if (val > 20) val = 20;
+            input.value = val;
+            calculateLoad();
+        });
+    });
+
+    if (customWattsInput) {
+        customWattsInput.addEventListener("input", calculateLoad);
+    }
+
+    if (backupSlider) {
+        backupSlider.addEventListener("input", (e) => {
+            const hours = parseFloat(e.target.value);
+            if (backupHoursVal) {
+                backupHoursVal.innerText = `${hours} ${hours === 1 ? 'Hour' : 'Hours'}`;
+            }
+            calculateLoad();
+        });
+    }
+
+    // Initial calculation
+    calculateLoad();
+}
+
+function calculateLoad() {
+    const backupSlider = document.getElementById("backupHours");
+    const backupHours = backupSlider ? parseFloat(backupSlider.value) || 3 : 3;
+
+    let totalWatts = 0;
+
+    // Loop through appliance wattages
+    for (const [appliance, watts] of Object.entries(APPLIANCE_WATTS)) {
+        if (appliance === "custom") {
+            const customWatts = parseFloat(document.getElementById("customWatts")?.value) || 0;
+            const customQty = parseInt(document.getElementById("qty-custom")?.value, 10) || 0;
+            totalWatts += (customWatts * customQty);
+        } else {
+            const qtyInput = document.getElementById(`qty-${appliance}`);
+            const qty = parseInt(qtyInput?.value, 10) || 0;
+            totalWatts += (watts * qty);
+        }
+    }
+
+    // Safety margin 25% and Power Factor 0.8
+    const requiredVaRaw = totalWatts > 0 ? (totalWatts / 0.8) * 1.25 : 0;
+    const requiredVa = Math.ceil(requiredVaRaw / 50) * 50;
+
+    // Battery calculation: (Total Watts * Hours) / (12V * 0.8 Efficiency)
+    const requiredAhRaw = totalWatts > 0 ? (totalWatts * backupHours) / (12 * 0.8) : 0;
+    const requiredAh = Math.ceil(requiredAhRaw);
+
+    // Product Mapping
+    let inverterName = "Microtek Pure Sinewave 700VA";
+    let inverterDesc = "Ideal for essential lights & fans";
+    if (requiredVa > 1650) {
+        inverterName = "Microtek Heavy Duty 2200 (24V Dual Battery)";
+        inverterDesc = "Heavy commercial & entire household backup";
+    } else if (requiredVa > 1200) {
+        inverterName = "Microtek Merlyn 1650 (1600VA / 12V)";
+        inverterDesc = "Premium high-load sinewave for luxury homes";
+    } else if (requiredVa > 950) {
+        inverterName = "Microtek Super Power 1250 (1100VA / 12V)";
+        inverterDesc = "Recommended for 3 BHK / multiple fans & TV";
+    } else if (requiredVa > 650) {
+        inverterName = "Microtek Luxe 1050 (1000VA Sinewave)";
+        inverterDesc = "Best-selling reliable home inverter";
+    }
+
+    let batteryName = "Microtek M1652424ST NEW (150Ah/165Ah)";
+    let batteryType = "Short Tubular • 48 Months Warranty";
+    if (requiredAh > 195) {
+        batteryName = "Microtek M210002424STT NEW (210Ah Jumbo)";
+        batteryType = "Jumbo Tall Tubular • 48 Months Warranty";
+    } else if (requiredAh > 165) {
+        batteryName = "Microtek M1852424ST NEW (185Ah Tall Tubular)";
+        batteryType = "Tall Tubular • 48 Months Warranty (Top Pick)";
+    } else if (requiredAh <= 110 && totalWatts > 0) {
+        batteryName = "Microtek 100Ah - 135Ah Tubular Battery";
+        batteryType = "Standard Tubular • 36-48 Months Warranty";
+    }
+
+    currentCalculation = {
+        totalWatts,
+        backupHours,
+        inverterVa: requiredVa,
+        batteryAh: requiredAh,
+        inverterName,
+        batteryName
+    };
+
+    // Update UI elements
+    const totalWattsEl = document.getElementById("calc-total-watts");
+    const requiredVaEl = document.getElementById("calc-required-va");
+    const requiredAhEl = document.getElementById("calc-required-ah");
+    const inverterNameEl = document.getElementById("calc-inverter-name");
+    const inverterDescEl = document.getElementById("calc-inverter-desc");
+    const batteryNameEl = document.getElementById("calc-battery-name");
+    const batteryTypeEl = document.getElementById("calc-battery-type");
+    const calcEmptyHint = document.getElementById("calc-empty-hint");
+    const calcResultsCard = document.getElementById("calc-results-card");
+
+    if (totalWattsEl) totalWattsEl.innerText = `${totalWatts} W`;
+    if (requiredVaEl) requiredVaEl.innerText = totalWatts > 0 ? `${requiredVa} VA` : "0 VA";
+    if (requiredAhEl) requiredAhEl.innerText = totalWatts > 0 ? `${requiredAh} Ah` : "0 Ah";
+
+    if (inverterNameEl) inverterNameEl.innerText = inverterName;
+    if (inverterDescEl) inverterDescEl.innerText = inverterDesc;
+    if (batteryNameEl) batteryNameEl.innerText = batteryName;
+    if (batteryTypeEl) batteryTypeEl.innerText = batteryType;
+
+    if (calcEmptyHint && calcResultsCard) {
+        if (totalWatts === 0) {
+            calcEmptyHint.style.display = "block";
+            calcResultsCard.classList.add("is-empty");
+        } else {
+            calcEmptyHint.style.display = "none";
+            calcResultsCard.classList.remove("is-empty");
+        }
+    }
+}
+
+// 1-Click Action: Scroll to Inquiry Form with Auto-filled Combo
+function quoteCalculatorCombo() {
+    const inquirySection = document.getElementById("inquiry") || document.querySelector(".inquiry-section");
+    const productSelect = document.getElementById("product");
+    const messageBox = document.getElementById("message");
+    const nameInput = document.getElementById("name");
+
+    if (inquirySection) {
+        inquirySection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    if (productSelect) {
+        productSelect.value = "Other";
+        // Check if there is an inverter or combo option
+        for (let i = 0; i < productSelect.options.length; i++) {
+            if (productSelect.options[i].text.toLowerCase().includes("inverter") || productSelect.options[i].value === "Inverter") {
+                productSelect.selectedIndex = i;
+                break;
+            }
+        }
+    }
+
+    if (messageBox) {
+        const { totalWatts, backupHours, inverterName, batteryName } = currentCalculation;
+        messageBox.value = `Hello Trust Care Electronics, I calculated my power requirement as ${totalWatts}W for ${backupHours} hours backup. Please provide quotation, discount, and doorstep installation in Chennai for:\n• Inverter: ${inverterName}\n• Battery: ${batteryName}`;
+    }
+
+    if (nameInput) {
+        setTimeout(() => {
+            nameInput.focus();
+        }, 600);
+    }
+}
+
+// 1-Click Action: Launch WhatsApp with Auto-filled Combo
+function whatsappCalculatorCombo() {
+    const { totalWatts, backupHours, inverterName, batteryName } = currentCalculation;
+    const phoneEl = document.getElementById('contact-phone');
+    const rawPhone = phoneEl ? phoneEl.innerText.replace(/[^0-9]/g, '') : "919884087878";
+    const waNumber = rawPhone.startsWith("91") ? rawPhone : `91${rawPhone}`;
+
+    const text = encodeURIComponent(
+        `Hello Trust Care Electronics, I calculated my power backup requirements on your website:\n` +
+        `• Total Load: ${totalWatts}W\n` +
+        `• Desired Backup: ${backupHours} Hours\n` +
+        `• Recommended Inverter: ${inverterName}\n` +
+        `• Recommended Battery: ${batteryName}\n\n` +
+        `Please share pricing, best discount, and delivery/installation details in Chennai.`
+    );
+
+    window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
+}
+
+// Auto-run calculator initialization when DOM is ready
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLoadCalculator);
+} else {
+    initLoadCalculator();
+}

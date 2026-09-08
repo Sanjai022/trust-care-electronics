@@ -27,6 +27,8 @@
         <nav class="header-nav">
             <a href="index.html">Home</a>
             <span class="nav-separator">|</span>
+            <a href="#calculator">Calculator</a>
+            <span class="nav-separator">|</span>
             <a href="inverter.html">Inverter</a>
             <span class="nav-separator">|</span>
             <a href="battery.html">Battery</a>
@@ -53,6 +55,7 @@
         <h2>Menu</h2>
 
         <a href="index.html">Home</a>
+        <a href="#calculator">⚡ Load Calculator</a>
         <a href="inverter.html">Inverter</a>
         <a href="battery.html">Battery</a>
         <a href="ups.html">UPS</a>
@@ -120,9 +123,14 @@
                     and UPS solutions for reliable and uninterrupted power.
                 </p>
 
-                <button class="explore-button" onclick="window.location.href='inverter.html'">
-                    Explore Products
-                </button>
+                <div class="hero-actions">
+                    <button class="explore-button" onclick="window.location.href='inverter.html'">
+                        Explore Products
+                    </button>
+                    <a href="#calculator" class="calc-hero-btn">
+                        ⚡ Load Calculator
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -164,8 +172,230 @@
 
         </section>
 
+        <!-- Inverter & Battery Load Calculator -->
+        <section class="calculator-section" id="calculator">
+            <div class="calculator-container" id="load-calculator">
+                <div class="calculator-header">
+                    <span class="calc-badge">Smart Sizing Tool</span>
+                    <h2>Inverter & Battery Load Calculator</h2>
+                    <p>Estimate your home or commercial power requirements and get a tailored Microtek inverter & tubular battery recommendation with instant quotation.</p>
+                </div>
+
+                <div class="calculator-grid">
+                    <!-- Left Column: Appliance Selectors & Hours Slider -->
+                    <div class="calc-inputs-col">
+                        <div class="calc-col-header">
+                            <span class="calc-step-num">Step 1</span>
+                            <h3>Select Connected Appliances</h3>
+                        </div>
+
+                        <div class="calc-appliances-list">
+                            <!-- Ceiling Fan -->
+                            <div class="calc-item">
+                                <div class="calc-item-info">
+                                    <div class="calc-item-icon">🌀</div>
+                                    <div class="calc-item-text">
+                                        <h4>Ceiling Fan</h4>
+                                        <span class="calc-item-watt">75W each</span>
+                                    </div>
+                                </div>
+                                <div class="calc-stepper">
+                                    <button type="button" class="calc-qty-btn" data-action="minus" data-appliance="fan" aria-label="Decrease fans">−</button>
+                                    <input type="number" id="qty-fan" class="calc-qty-input" value="3" min="0" max="20" aria-label="Fan quantity">
+                                    <button type="button" class="calc-qty-btn" data-action="plus" data-appliance="fan" aria-label="Increase fans">+</button>
+                                </div>
+                            </div>
+
+                            <!-- LED Bulb -->
+                            <div class="calc-item">
+                                <div class="calc-item-info">
+                                    <div class="calc-item-icon">💡</div>
+                                    <div class="calc-item-text">
+                                        <h4>LED Bulb / Light</h4>
+                                        <span class="calc-item-watt">15W each</span>
+                                    </div>
+                                </div>
+                                <div class="calc-stepper">
+                                    <button type="button" class="calc-qty-btn" data-action="minus" data-appliance="led" aria-label="Decrease LED lights">−</button>
+                                    <input type="number" id="qty-led" class="calc-qty-input" value="4" min="0" max="20" aria-label="LED light quantity">
+                                    <button type="button" class="calc-qty-btn" data-action="plus" data-appliance="led" aria-label="Increase LED lights">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Tube Light -->
+                            <div class="calc-item">
+                                <div class="calc-item-info">
+                                    <div class="calc-item-icon">🔦</div>
+                                    <div class="calc-item-text">
+                                        <h4>Tube Light</h4>
+                                        <span class="calc-item-watt">40W each</span>
+                                    </div>
+                                </div>
+                                <div class="calc-stepper">
+                                    <button type="button" class="calc-qty-btn" data-action="minus" data-appliance="tubelight" aria-label="Decrease tube lights">−</button>
+                                    <input type="number" id="qty-tubelight" class="calc-qty-input" value="1" min="0" max="20" aria-label="Tube light quantity">
+                                    <button type="button" class="calc-qty-btn" data-action="plus" data-appliance="tubelight" aria-label="Increase tube lights">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Television -->
+                            <div class="calc-item">
+                                <div class="calc-item-info">
+                                    <div class="calc-item-icon">📺</div>
+                                    <div class="calc-item-text">
+                                        <h4>LED Television</h4>
+                                        <span class="calc-item-watt">100W (up to 55")</span>
+                                    </div>
+                                </div>
+                                <div class="calc-stepper">
+                                    <button type="button" class="calc-qty-btn" data-action="minus" data-appliance="tv" aria-label="Decrease TV">−</button>
+                                    <input type="number" id="qty-tv" class="calc-qty-input" value="1" min="0" max="5" aria-label="TV quantity">
+                                    <button type="button" class="calc-qty-btn" data-action="plus" data-appliance="tv" aria-label="Increase TV">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Wi-Fi Router / Laptop -->
+                            <div class="calc-item">
+                                <div class="calc-item-info">
+                                    <div class="calc-item-icon">📶</div>
+                                    <div class="calc-item-text">
+                                        <h4>Wi-Fi Router / Laptop</h4>
+                                        <span class="calc-item-watt">50W each</span>
+                                    </div>
+                                </div>
+                                <div class="calc-stepper">
+                                    <button type="button" class="calc-qty-btn" data-action="minus" data-appliance="router" aria-label="Decrease routers">−</button>
+                                    <input type="number" id="qty-router" class="calc-qty-input" value="1" min="0" max="10" aria-label="Router quantity">
+                                    <button type="button" class="calc-qty-btn" data-action="plus" data-appliance="router" aria-label="Increase routers">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Refrigerator -->
+                            <div class="calc-item">
+                                <div class="calc-item-info">
+                                    <div class="calc-item-icon">❄️</div>
+                                    <div class="calc-item-text">
+                                        <h4>Inverter Refrigerator</h4>
+                                        <span class="calc-item-watt">200W (running)</span>
+                                    </div>
+                                </div>
+                                <div class="calc-stepper">
+                                    <button type="button" class="calc-qty-btn" data-action="minus" data-appliance="fridge" aria-label="Decrease fridge">−</button>
+                                    <input type="number" id="qty-fridge" class="calc-qty-input" value="0" min="0" max="2" aria-label="Fridge quantity">
+                                    <button type="button" class="calc-qty-btn" data-action="plus" data-appliance="fridge" aria-label="Increase fridge">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Custom Appliance -->
+                            <div class="calc-item calc-custom-item">
+                                <div class="calc-item-info">
+                                    <div class="calc-item-icon">⚙️</div>
+                                    <div class="calc-item-text">
+                                        <h4>Other Appliance</h4>
+                                        <div class="calc-custom-inputs">
+                                            <input type="number" id="customWatts" placeholder="Watts (e.g. 120)" min="0" max="3000">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="calc-stepper">
+                                    <button type="button" class="calc-qty-btn" data-action="minus" data-appliance="custom" aria-label="Decrease custom">−</button>
+                                    <input type="number" id="qty-custom" class="calc-qty-input" value="0" min="0" max="10" aria-label="Custom quantity">
+                                    <button type="button" class="calc-qty-btn" data-action="plus" data-appliance="custom" aria-label="Increase custom">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Backup Hours Slider -->
+                        <div class="calc-slider-card">
+                            <div class="calc-slider-header">
+                                <div>
+                                    <span class="calc-step-num">Step 2</span>
+                                    <h3>Desired Backup Duration</h3>
+                                    <p class="calc-slider-sub">Select outage duration to run these appliances</p>
+                                </div>
+                                <span class="calc-hours-badge" id="backupHoursVal">3 Hours</span>
+                            </div>
+                            <div class="calc-slider-wrap">
+                                <input type="range" id="backupHours" min="1" max="8" step="0.5" value="3" aria-label="Backup hours slider">
+                                <div class="calc-slider-ticks">
+                                    <span>1 hr</span>
+                                    <span>2 hrs</span>
+                                    <span>4 hrs</span>
+                                    <span>6 hrs</span>
+                                    <span>8 hrs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Result Recommendation Card -->
+                    <div class="calc-results-col">
+                        <div class="calc-result-card" id="calc-results-card">
+                            <div class="calc-card-badge">Tailored Recommendation</div>
+                            
+                            <div class="calc-metrics-row">
+                                <div class="calc-metric-box">
+                                    <span class="calc-metric-label">Total Running Load</span>
+                                    <span class="calc-metric-val" id="calc-total-watts">475 W</span>
+                                </div>
+                                <div class="calc-metric-box">
+                                    <span class="calc-metric-label">Min Inverter Rating</span>
+                                    <span class="calc-metric-val highlight" id="calc-required-va">750 VA</span>
+                                </div>
+                                <div class="calc-metric-box">
+                                    <span class="calc-metric-label">Battery Capacity</span>
+                                    <span class="calc-metric-val highlight" id="calc-required-ah">149 Ah</span>
+                                </div>
+                            </div>
+
+                            <div class="calc-recommendation-block">
+                                <span class="calc-block-tag">Recommended Microtek Inverter</span>
+                                <div class="calc-prod-display">
+                                    <div class="calc-prod-icon">⚡</div>
+                                    <div>
+                                        <h4 id="calc-inverter-name">Microtek Luxe 1050 (1000VA Sinewave)</h4>
+                                        <p id="calc-inverter-desc">Best-selling reliable home inverter</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="calc-recommendation-block">
+                                <span class="calc-block-tag">Recommended Tubular Battery</span>
+                                <div class="calc-prod-display">
+                                    <div class="calc-prod-icon">🔋</div>
+                                    <div>
+                                        <h4 id="calc-battery-name">Microtek M1652424ST NEW (150Ah/165Ah)</h4>
+                                        <p id="calc-battery-type">Short Tubular • 48 Months Warranty</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="calc-perks-list">
+                                <div class="calc-perk">✓ 100% Genuine Microtek Products with Official Warranty</div>
+                                <div class="calc-perk">✓ Free Delivery & Professional Installation in Chennai</div>
+                                <div class="calc-perk">✓ Best Exchange Scrap Value on Old Batteries</div>
+                            </div>
+
+                            <div class="calc-actions">
+                                <button type="button" class="calc-btn-primary" onclick="quoteCalculatorCombo()">
+                                    <span>📝</span> Get Instant Combo Quote
+                                </button>
+                                <button type="button" class="calc-btn-whatsapp" onclick="whatsappCalculatorCombo()">
+                                    <span>💬</span> WhatsApp My Recommendation
+                                </button>
+                            </div>
+
+                            <div id="calc-empty-hint" style="display: none;" class="calc-empty-alert">
+                                ℹ️ Please select at least one appliance to see recommendations.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Quick Inquiry Form -->
-        <section class="inquiry-section">
+        <section class="inquiry-section" id="inquiry">
             <div class="inquiry-container">
                 <h2>Quick Inquiry</h2>
                 <p>Get in touch with us for product inquiries and quotations</p>
