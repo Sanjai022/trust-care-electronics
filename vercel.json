@@ -1,24 +1,59 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/images/(.*)", "destination": "/public/images/$1" },
+    { "source": "/style.css", "destination": "/public/style.css" },
+    { "source": "/script.js", "destination": "/public/script.js" },
+    { "source": "/battery", "destination": "/public/battery.html" },
+    { "source": "/battery.html", "destination": "/public/battery.html" },
+    { "source": "/inverter", "destination": "/public/inverter.html" },
+    { "source": "/inverter.html", "destination": "/public/inverter.html" },
+    { "source": "/ups", "destination": "/public/ups.html" },
+    { "source": "/ups.html", "destination": "/public/ups.html" },
+    { "source": "/about", "destination": "/public/about.html" },
+    { "source": "/about.html", "destination": "/public/about.html" },
+    { "source": "/", "destination": "/public/index.html" },
+    { "source": "/index.html", "destination": "/public/index.html" },
+    { "source": "/(.*)\\.(ico|png|jpg|jpeg|svg|webp|gif|json|txt)", "destination": "/public/$1.$2" }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "server.js"
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(css|js)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "functions": {
-    "server.js": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
-  }
+  ]
 }
