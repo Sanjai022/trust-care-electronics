@@ -209,6 +209,14 @@ function inquireProduct(productName) {
                     productSelect.selectedIndex = i;
                     matched = true;
                     break;
+                } else if ((lower.includes("bike") || lower.includes("scooter") || lower.includes("two-wheeler") || lower.includes("btx") || lower.includes("btz") || lower.includes("xltz") || lower.includes("pulsar") || lower.includes("activa")) && (optText.includes("bike") || optText.includes("two-wheeler") || optVal.includes("two-wheeler"))) {
+                    productSelect.selectedIndex = i;
+                    matched = true;
+                    break;
+                } else if ((lower.includes("car") || lower.includes("four-wheeler") || lower.includes("flo") || lower.includes("mileage") || lower.includes("epiq") || lower.includes("creta") || lower.includes("swift")) && (optText.includes("car") || optText.includes("four-wheeler") || optVal.includes("four-wheeler"))) {
+                    productSelect.selectedIndex = i;
+                    matched = true;
+                    break;
                 } else if (lower.includes("battery") && (optVal === "battery" || optText.includes("battery"))) {
                     productSelect.selectedIndex = i;
                     matched = true;
