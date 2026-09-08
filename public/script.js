@@ -178,3 +178,40 @@ fetch('/api/config')
         }
     })
     .catch(err => console.error('Failed to load contact config:', err));
+
+// Helper to prefill and scroll to inquiry form from product cards
+function inquireProduct(productName) {
+    const inquirySection = document.getElementById("inquiry");
+    const productSelect = document.getElementById("product");
+    const messageBox = document.getElementById("message");
+    const nameInput = document.getElementById("name");
+
+    if (inquirySection) {
+        inquirySection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    if (productSelect) {
+        // Try to match option by value or text
+        let matched = false;
+        for (let i = 0; i < productSelect.options.length; i++) {
+            if (productSelect.options[i].value === productName || productSelect.options[i].text.includes(productName)) {
+                productSelect.selectedIndex = i;
+                matched = true;
+                break;
+            }
+        }
+        if (!matched) {
+            productSelect.value = "Battery";
+        }
+    }
+
+    if (messageBox) {
+        messageBox.value = `Hello Trust Care Electronics, I am interested in inquiring about the ${productName}. Please provide price quotation, warranty terms, and availability.`;
+    }
+
+    if (nameInput) {
+        setTimeout(() => {
+            nameInput.focus();
+        }, 600);
+    }
+}
